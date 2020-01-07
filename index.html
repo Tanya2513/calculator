@@ -1,0 +1,136 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div><input id="screen" class="screen" type="text" readonly="readonly"></div>
+<table class="calculator">
+    <tr>
+        <td class="grey">AC</td>
+        <td class="grey">+/-</td>
+        <td class="grey" onclick="percent()">%</td>
+        <td class="orange" onclick="divide(this)">/</td>
+    </tr>
+    <tr>
+        <td onclick="input(7)">7</td>
+        <td onclick="input(8)">8</td>
+        <td onclick="input(9)">9</td>
+        <td class="orange" onclick="multiply(this)">*</td>
+    </tr>
+    <tr>
+        <td onclick="input(4)">4</td>
+        <td onclick="input(5)">5</td>
+        <td onclick="input(6)">6</td>
+        <td class="orange" onclick="minus(this)">-</td>
+    </tr>
+    <tr>
+        <td onclick="input(1)">1</td>
+        <td onclick="input(2)">2</td>
+        <td onclick="input(3)">3</td>
+        <td class="orange" onclick="plus(this)">+</td>
+    </tr>
+    <tr>
+        <td colspan="2" onclick="input(0)">0</td>
+        <td>,</td>
+        <td class="orange" onclick="result()">=</td>
+    </tr>
+</table>
+<script>
+
+    var firstValue;
+    var operation;
+
+
+    function input(number) {
+
+        var activeElements = document.getElementsByClassName("active");
+
+        for (var i = 0; i < activeElements.length; i++){
+            var activeElement = activeElements[i];
+            activeElement.classList.remove('active');
+        }
+
+
+        var screen = document.getElementById("screen");
+
+        if (firstValue) {
+            screen.value = '';
+        }
+
+        screen.value = String(screen.value) + String(number);
+
+
+    }
+
+    function plus(element) {
+        element.classList.add('active');
+
+        var screen = document.getElementById("screen");
+
+        firstValue = screen.value;
+        operation = '+';
+    }
+
+    function minus(element) {
+        element.classList.add('active');
+        var screen = document.getElementById("screen");
+
+        firstValue = screen.value;
+        operation = '-';
+    }
+
+    function multiply(element) {
+        element.classList.add('active');
+        var screen = document.getElementById("screen");
+
+        firstValue = screen.value;
+        operation = '*';
+    }
+
+    function divide(element) {
+        element.classList.add('active');
+        var screen = document.getElementById("screen");
+
+        firstValue = screen.value;
+        operation = '/';
+    }
+
+    function percent() {
+        var screen = document.getElementById("screen");
+
+        firstValue = screen.value;
+        operation = '%';
+    }
+
+    function result() {
+        var screen = document.getElementById("screen");
+        var secondValue = screen.value;
+        var result;
+
+        if (operation === '+') {
+            result = Number.parseFloat(firstValue) + Number.parseFloat(secondValue);
+        }
+
+        if (operation === '-') {
+            result = Number.parseFloat(firstValue) - Number.parseFloat(secondValue);
+        }
+
+        if (operation === '*') {
+            result = Number.parseFloat(firstValue) * Number.parseFloat(secondValue);
+        }
+
+        if (operation === '/') {
+            result = Number.parseFloat(firstValue) / Number.parseFloat(secondValue);
+        }
+
+        if (operation === '%') {
+            result = Number.parseFloat(firstValue) / 100;
+        }
+
+        screen.value = result;
+    }
+
+</script>
+</body>
+</html>
